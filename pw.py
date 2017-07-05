@@ -10,7 +10,7 @@ PASSWORDS = {
 
 # Exit the program if the sys.argv list has fewer than two values in it(means miss the account).
 if len(sys.argv) < 2:
-    print('Usage: py pw.py [account] - copy account password')
+    print('Usage: python pw.py [account] - copy account password')
 
     sys.exit()
 
