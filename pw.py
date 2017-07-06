@@ -39,7 +39,7 @@ if __name__ == '__main__':
     # First command line argv is the path of csv file.
     path = sys.argv[1]
 
-    # Second command line argv is the account name.
-    account = sys.argv[2]
+    # Second command line argv is the username.
+    username = sys.argv[2]
 
-    passwordReader(path, account)
+    passwordReader(path, username)
