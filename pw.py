@@ -1,6 +1,34 @@
 #! python
 # pw.py - An insecure password locker program.
-import os, csv, sys, pyperclip
+import os, csv, sys, getopt, Account, pyperclip
+
+# Define global variables
+# `mode` indicates either read password or write an account into csv file
+mode        = None
+csvFilePath = None
+username    = None
+password    = None
+category    = None
+
+def usage():
+    print 'An insecure password locker program'
+    print
+    print 'Usage: python pw.py '
+    print '-r --read                     - copy password to the clipboard for the given [username]'
+    print '-w --write                    - write an account(composed of [username] [password] [category])' \
+                                         ' into the csv file'
+    print '-f --file_path=your_file_path - the path to the csv file'
+    print '-u --username=your_username   - the username'
+    print '-p --password=your_password   - the password'
+    print '-c --category=your_category   - the category of the account(e.g. google gmail)'
+    print
+    print
+    print 'Examples: '
+    print 'python pw.py -f ~/Desktop/accounts.csv -u my_username'
+    print 'python pw.py -r -f ~/Desktop/accounts.csv -u my_username'
+    print 'python pw.py -w -f ~/Desktop/accounts.csv -u my_username -p my_password -c gmail'
+
+    sys.exit(0)
 
 def passwordReader(path, username, dialect=csv.excel, **kwargs):
     with open(path) as csvFile:
@@ -29,17 +57,55 @@ def accountWriter(path, account, dialect=csv.excel, **kwargs):
 
         writer.writerow({'username': account.username, 'password': account.password, 'category': account.category})
 
+        print 'Your account: ' + account.username + ' have been written into the file'
+
+def main():
+    global mode
+    global csvFilePath
+    global username
+    global password
+    global category
+
+    # Display the usage if the sys.argv list has fewer than three values in it.
+    if not len(sys.argv[1:]):
+        usage()
+
+    # Read the commandline options
+    try:
+        opts, args = getopt.getopt(
+            sys.argv[1:],
+            'hrwf:u:p:c:',
+            ['help', 'read', 'write', 'file_path=', 'username=', 'password=', 'category=']
+        )
+
+        for o, a in opts:
+            if o in ('-h', '--help'):
+                usage()
+            elif o in ('-r', '--read'):
+                mode = 'r'
+            elif o in ('-w', '--write'):
+                mode = 'w'
+            elif o in ('-f', '--file_path'):
+                csvFilePath = a
+            elif o in ('-u', '--username'):
+                username = a
+            elif o in ('-p', '--password'):
+                password = a
+            elif o in ('-c', '--category'):
+                category = a
+            else:
+                assert False, "Unhandled Option"
+
+        if mode == 'w':
+            acc = Account.Account(username, password, category)
+
+            accountWriter(csvFilePath, acc)
+        else:
+            passwordReader(csvFilePath, username)
+    except getopt.GetoptError as err:
+        print str(err)
+
+        usage()
+
 if __name__ == '__main__':
-    # Exit the program if the sys.argv list has fewer than three values in it.
-    if len(sys.argv) < 3:
-        print('Usage: python pw.py [path of csv file] [account] - copy account password')
-
-        sys.exit()
-
-    # First command line argv is the path of csv file.
-    path = sys.argv[1]
-
-    # Second command line argv is the username.
-    username = sys.argv[2]
-
-    passwordReader(path, username)
+    main()
