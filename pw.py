@@ -1,6 +1,6 @@
 #! python
 # pw.py - An insecure password locker program.
-import os, csv, sys, getopt, Account, pyperclip
+import os, csv, sys, getopt, account, pyperclip
 
 # Define global variables
 # `mode` indicates either read password or write an account into csv file
@@ -97,7 +97,7 @@ def main():
                 assert False, "Unhandled Option"
 
         if mode == 'w':
-            acc = Account.Account(username, password, category)
+            acc = account.Account(username, password, category)
 
             accountWriter(csvFilePath, acc)
         else:
