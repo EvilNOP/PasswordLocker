@@ -9,6 +9,7 @@ csvFilePath = None
 username    = None
 password    = None
 category    = None
+fieldnames  = ['username', 'password', 'category']
 
 def usage():
     print 'An insecure password locker program'
@@ -46,8 +47,9 @@ def passwordReader(path, username, dialect=csv.excel, **kwargs):
             print('There is no account named ' + username)
 
 def accountWriter(path, account, dialect=csv.excel, **kwargs):
+    global fieldnames
+
     with open(path, 'a') as csvFile:
-        fieldnames = ['username', 'password', 'category']
 
         writer = csv.DictWriter(csvFile, fieldnames=fieldnames)
 
