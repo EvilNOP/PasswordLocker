@@ -57,7 +57,7 @@ def accountWriter(path, account, dialect=csv.excel, **kwargs):
 
         writer.writerow({'username': account.username, 'password': account.password, 'category': account.category})
 
-        print 'Your account: ' + account.username + ' have been written to the file'
+        print 'Account: ' + account.username + ' was written to the file successfully'
 
 def main():
     global mode
