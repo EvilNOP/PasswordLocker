@@ -3,7 +3,7 @@
 import os, csv, sys, getopt, account, pyperclip
 
 # Define global variables
-# `mode` indicates either read password or write an account into csv file
+# `mode` indicates either read password or write an account to csv file
 mode        = None
 csvFilePath = None
 username    = None
@@ -16,7 +16,7 @@ def usage():
     print 'Usage: python pw.py '
     print '-r --read                     - copy password to the clipboard for the given [username]'
     print '-w --write                    - write an account(composed of [username] [password] [category])' \
-                                         ' into the csv file'
+                                         ' to the csv file'
     print '-f --file_path=your_file_path - the path to the csv file'
     print '-u --username=your_username   - the username'
     print '-p --password=your_password   - the password'
@@ -57,7 +57,7 @@ def accountWriter(path, account, dialect=csv.excel, **kwargs):
 
         writer.writerow({'username': account.username, 'password': account.password, 'category': account.category})
 
-        print 'Your account: ' + account.username + ' have been written into the file'
+        print 'Your account: ' + account.username + ' have been written to the file'
 
 def main():
     global mode
