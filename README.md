@@ -3,7 +3,7 @@
 ![Platform](https://img.shields.io/badge/platform-python-orange.svg?style=flat)
 ![Language](https://img.shields.io/badge/python27-compatible-4BC51D.svg?style=flat)
 
-Password locker enables you copy any account password to the clipboard and paste it into the websites Password field.
+Password locker enables you copy any account password to the clipboard and paste it to the websites Password field.
 
 - [Usage](#usage)
 
@@ -12,7 +12,7 @@ Password locker enables you copy any account password to the clipboard and paste
 ```shell
     Usage: python pw.py
     -r --read                     - copy password to the clipboard for the given [username]
-    -w --write                    - write an account(composed of [username] [password] [category]) into the csv file
+    -w --write                    - write an account(composed of [username] [password] [category]) to the csv file
     -f --file_path=your_file_path - the path to the csv file
     -u --username=your_username   - the username
     -p --password=your_password   - the password
