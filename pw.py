@@ -31,9 +31,9 @@ def usage():
 
     sys.exit(0)
 
-def passwordReader(path, username, dialect=csv.excel, **kwargs):
+def passwordReader(path, username, dialect=csv.excel):
     with open(path) as csvFile:
-        reader = csv.DictReader(csvFile, dialect=dialect, **kwargs)
+        reader = csv.DictReader(csvFile, dialect=dialect)
 
         # Iterate over `reader` to copy the right password if the account name exists.
         for row in reader:
@@ -46,7 +46,7 @@ def passwordReader(path, username, dialect=csv.excel, **kwargs):
         else:
             print('There is no account named ' + username)
 
-def accountWriter(path, account, dialect=csv.excel, **kwargs):
+def accountWriter(path, account, dialect=csv.excel):
     global fieldnames
 
     with open(path, 'a') as csvFile:
