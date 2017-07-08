@@ -18,7 +18,7 @@ def usage():
     print '-r --read                     - copy password to the clipboard for the given [username]'
     print '-w --write                    - write an account to the csv file'
     print '-d --delete                   - delete an account from the csv file'
-    print '-f --filepath=filepath - the path to the csv file'
+    print '-f --filepath=filepath        - the path to the csv file'
     print '-u --username=your_username   - the username'
     print '-p --password=your_password   - the password'
     print '-c --category=your_category   - the category of the account(e.g. google gmail)'
