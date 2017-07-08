@@ -61,6 +61,38 @@ def accountWriter(path, account, dialect=csv.excel, **kwargs):
 
         print 'Account: ' + account.username + ' was written to the file successfully'
 
+def removeAccount(path, username, dialect=csv.excel):
+    global fieldnames
+
+    # Read the CSV file in (skipping the row matching the given username)
+    with open(path, 'r') as csvFile:
+        csvRows = []
+        isUsernameFound = False
+
+        reader = csv.DictReader(csvFile, fieldnames=fieldnames, dialect=dialect)
+
+        for row in reader:
+            if row['username'] == username:
+                isUsernameFound = True
+
+                continue
+
+            csvRows.append(row)
+
+        if not isUsernameFound:
+            print('There is no account named ' + username)
+
+            return
+
+    # Write the rows to the same csv file
+    with open(path, 'w') as csvFile:
+        writer = csv.DictWriter(csvFile, fieldnames=fieldnames, dialect=dialect)
+
+        writer.writeheader()
+        writer.writerows(csvRows)
+
+        print 'Account: ' + username + ' removed successfully'
+
 def main():
     global mode
     global csvFilePath
