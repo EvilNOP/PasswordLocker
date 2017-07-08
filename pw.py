@@ -70,7 +70,7 @@ def deleteAccount(path, username, dialect=csv.excel):
         csvRows = []
         isUsernameFound = False
 
-        reader = csv.DictReader(csvFile, fieldnames=fieldnames, dialect=dialect)
+        reader = csv.DictReader(csvFile, dialect=dialect)
 
         for row in reader:
             if row['username'] == username:
