@@ -60,7 +60,7 @@ def accountWriter(path, account, dialect=csv.excel):
 
         writer.writerow({'username': account.username, 'password': account.password, 'category': account.category})
 
-        print 'Account: ' + account.username + ' was written to the file successfully'
+        print 'Account ' + account.username + ' was written to the file successfully'
 
 def deleteAccount(path, username, dialect=csv.excel):
     global fieldnames
@@ -92,7 +92,7 @@ def deleteAccount(path, username, dialect=csv.excel):
         writer.writeheader()
         writer.writerows(csvRows)
 
-        print 'Account: ' + username + ' removed successfully'
+        print 'Account ' + username + ' removed successfully'
 
 def main():
     global mode
