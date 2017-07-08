@@ -16,8 +16,8 @@ def usage():
     print
     print 'Usage: python pw.py '
     print '-r --read                     - copy password to the clipboard for the given [username]'
-    print '-w --write                    - write an account(composed of [username] [password] [category])' \
-                                         ' to the csv file'
+    print '-w --write                    - write an account to the csv file'
+    print '-d --delete                   - delete an account from the csv file'
     print '-f --file_path=your_file_path - the path to the csv file'
     print '-u --username=your_username   - the username'
     print '-p --password=your_password   - the password'
@@ -28,6 +28,7 @@ def usage():
     print 'python pw.py -f ~/Desktop/accounts.csv -u my_username'
     print 'python pw.py -r -f ~/Desktop/accounts.csv -u my_username'
     print 'python pw.py -w -f ~/Desktop/accounts.csv -u my_username -p my_password -c gmail'
+    print 'python pw.py -d -f ~/Desktop/accounts.csv -u my_username'
 
     sys.exit(0)
 
@@ -108,8 +109,8 @@ def main():
     try:
         opts, args = getopt.getopt(
             sys.argv[1:],
-            'hrwf:u:p:c:',
-            ['help', 'read', 'write', 'file_path=', 'username=', 'password=', 'category=']
+            'hrwdf:u:p:c:',
+            ['help', 'read', 'write', 'delete', 'file_path=', 'username=', 'password=', 'category=']
         )
 
         for o, a in opts:
@@ -119,6 +120,8 @@ def main():
                 mode = 'r'
             elif o in ('-w', '--write'):
                 mode = 'w'
+            elif o in ('-d', '--delete'):
+                mode = 'd'
             elif o in ('-f', '--file_path'):
                 csvFilePath = a
             elif o in ('-u', '--username'):
@@ -134,6 +137,8 @@ def main():
             acc = account.Account(username, password, category)
 
             accountWriter(csvFilePath, acc)
+        elif mode == 'd':
+            deleteAccount(csvFilePath, username)
         else:
             passwordReader(csvFilePath, username)
     except getopt.GetoptError as err:
