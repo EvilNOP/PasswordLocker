@@ -61,7 +61,7 @@ def accountWriter(path, account, dialect=csv.excel, **kwargs):
 
         print 'Account: ' + account.username + ' was written to the file successfully'
 
-def removeAccount(path, username, dialect=csv.excel):
+def deleteAccount(path, username, dialect=csv.excel):
     global fieldnames
 
     # Read the CSV file in (skipping the row matching the given username)
