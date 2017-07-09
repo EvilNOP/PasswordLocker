@@ -15,20 +15,22 @@ def usage():
     print 'An insecure password locker program'
     print
     print 'Usage: python pw.py '
-    print '-r --read                     - copy password to the clipboard for the given [username]'
+    print '-r --read                     - copy password to the clipboard for the given username'
     print '-w --write                    - write an account to the csv file'
     print '-d --delete                   - delete an account from the csv file'
-    print '-f --filepath=filepath        - the path to the csv file'
-    print '-a --account=your_account     - the username of account'
-    print '-p --password=your_password   - the password'
-    print '-c --category=your_category   - the category of the account(e.g. google gmail)'
+    print '-u --update                   - update an account from the csv file'
+    print '-f --filepath=filepath        - the [path] to the csv file'
+    print '-a --account=your_account     - the [username] of account'
+    print '-p --password=your_password   - the [password]'
+    print '-c --category=your_category   - the [category] of the account(e.g. google)'
     print
     print
     print 'Examples: '
-    print 'python pw.py -f ~/Desktop/accounts.csv -u my_username'
-    print 'python pw.py -r -f ~/Desktop/accounts.csv -u my_username'
-    print 'python pw.py -w -f ~/Desktop/accounts.csv -u my_username -p my_password -c gmail'
-    print 'python pw.py -d -f ~/Desktop/accounts.csv -u my_username'
+    print 'python pw.py -f ~/Desktop/accounts.csv -a my_username'
+    print 'python pw.py -r -f ~/Desktop/accounts.csv -a my_username'
+    print 'python pw.py -w -f ~/Desktop/accounts.csv -a my_username -p my_password -c google'
+    print 'python pw.py -d -f ~/Desktop/accounts.csv -a my_username'
+    print 'python pw.py -u -f ~/Desktop/accounts.csv -a my_username -p my_password -c google'
 
     sys.exit(0)
 
@@ -168,10 +170,13 @@ def main():
             else:
                 assert False, "Unhandled Option"
 
-        if mode == 'w':
+        if mode in 'wu':
             acc = account.Account(username, password, category)
 
-            accountWriter(csvFilePath, acc)
+            if mode == 'w':
+                accountWriter(csvFilePath, acc)
+            else:
+                updateAccount(csvFilePath, acc)
         elif mode == 'd':
             deleteAccount(csvFilePath, username)
         else:
