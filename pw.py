@@ -19,7 +19,7 @@ def usage():
     print '-w --write                    - write an account to the csv file'
     print '-d --delete                   - delete an account from the csv file'
     print '-f --filepath=filepath        - the path to the csv file'
-    print '-u --username=your_username   - the username'
+    print '-a --account=your_account     - the username of account'
     print '-p --password=your_password   - the password'
     print '-c --category=your_category   - the category of the account(e.g. google gmail)'
     print
@@ -144,8 +144,8 @@ def main():
     try:
         opts, args = getopt.getopt(
             sys.argv[1:],
-            'hrwdf:u:p:c:',
-            ['help', 'read', 'write', 'delete', 'filepath=', 'username=', 'password=', 'category=']
+            'hrwdf:a:p:c:',
+            ['help', 'read', 'write', 'delete', 'filepath=', 'account=', 'password=', 'category=']
         )
 
         for o, a in opts:
@@ -159,7 +159,7 @@ def main():
                 mode = 'd'
             elif o in ('-f', '--filepath'):
                 csvFilePath = a
-            elif o in ('-u', '--username'):
+            elif o in ('-a', '--account'):
                 username = a
             elif o in ('-p', '--password'):
                 password = a
