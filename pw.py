@@ -34,22 +34,7 @@ def usage():
 
     sys.exit(0)
 
-def passwordReader(path, username, dialect=csv.excel):
-    with open(path) as csvFile:
-        reader = csv.DictReader(csvFile, dialect=dialect)
-
-        # Iterate over `reader` to copy the right password if the account name exists.
-        for row in reader:
-            if row['username'] == username:
-                pyperclip.copy(row['password'])
-
-                print('Password for ' + username + ' copied to clipboard.')
-
-                break
-        else:
-            print('There is no account named ' + username)
-
-def accountWriter(path, account, dialect=csv.excel):
+def createAccount(path, account, dialect=csv.excel):
     global fieldnames
 
     with open(path, 'a') as csvFile:
@@ -63,6 +48,21 @@ def accountWriter(path, account, dialect=csv.excel):
         writer.writerow({'username': account.username, 'password': account.password, 'category': account.category})
 
         print 'Account ' + account.username + ' was written to the file successfully'
+
+def retrieveAccount(path, username, dialect=csv.excel):
+    with open(path) as csvFile:
+        reader = csv.DictReader(csvFile, dialect=dialect)
+
+        # Iterate over `reader` to copy the right password if the account name exists.
+        for row in reader:
+            if row['username'] == username:
+                pyperclip.copy(row['password'])
+
+                print('Password for ' + username + ' copied to clipboard.')
+
+                break
+        else:
+            print('There is no account named ' + username)
 
 def deleteAccount(path, username, dialect=csv.excel):
     global fieldnames
