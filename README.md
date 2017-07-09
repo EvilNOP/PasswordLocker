@@ -9,17 +9,21 @@ Password locker enables you copy any account password to the clipboard and paste
 
 ## Usage
 
-```shell
-    Usage: python pw.py
-    -r --read                     - copy password to the clipboard for the given [username]
-    -w --write                    - write an account(composed of [username] [password] [category]) to the csv file
-    -f --file_path=your_file_path - the path to the csv file
-    -u --username=your_username   - the username
-    -p --password=your_password   - the password
-    -c --category=your_category   - the category of the account(e.g. google gmail)
-
-    Examples:
-    python pw.py -f ~/Desktop/accounts.csv -u my_username
-    python pw.py -r -f ~/Desktop/accounts.csv -u my_username
-    python pw.py -w -f ~/Desktop/accounts.csv -u my_username -p my_password -c gmail
+```bash
+    Usage: python pw.py 
+    -r --read                     - copy password to the clipboard for the given username
+    -w --write                    - write an account to the csv file
+    -d --delete                   - delete an account from the csv file
+    -u --update                   - update an account from the csv file
+    -f --filepath=filepath        - the [path] to the csv file
+    -a --account=your_account     - the [username] of account
+    -p --password=your_password   - the [password]
+    -c --category=your_category   - the [category] of the account(e.g. google)
+    
+    Examples: 
+    python pw.py -f ~/Desktop/accounts.csv -a my_username
+    python pw.py -r -f ~/Desktop/accounts.csv -a my_username
+    python pw.py -w -f ~/Desktop/accounts.csv -a my_username -p my_password -c google
+    python pw.py -d -f ~/Desktop/accounts.csv -a my_username
+    python pw.py -u -f ~/Desktop/accounts.csv -a my_username -p my_password -c google
 ```
