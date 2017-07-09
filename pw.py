@@ -94,6 +94,41 @@ def deleteAccount(path, username, dialect=csv.excel):
 
         print 'Account ' + username + ' removed successfully'
 
+def updateAccount(path, account, dialect=csv.excel):
+    global fieldnames
+
+    # Read the CSV file in and update the account which matching the username of the given account
+    with open(path, 'r') as csvFile:
+        csvRows = []
+        isUsernameFound = False
+
+        reader = csv.DictReader(csvFile, dialect=dialect)
+
+        for row in reader:
+            if row['username'] == account.username:
+                isUsernameFound = True
+
+                # Update the account
+                row['username'] = account.username
+                row['password'] = account.password
+                row['category'] = account.category
+
+            csvRows.append(row)
+
+        if not isUsernameFound:
+            print('There is no account named ' + username)
+
+            return
+
+    # Write the rows to the same csv file
+    with open(path, 'w') as csvFile:
+        writer = csv.DictWriter(csvFile, fieldnames=fieldnames, dialect=dialect)
+
+        writer.writeheader()
+        writer.writerows(csvRows)
+
+        print 'Account ' + account.username + ' updated successfully'
+
 def main():
     global mode
     global csvFilePath
