@@ -1,6 +1,6 @@
 #! python
 # pw.py - An insecure password locker program.
-import os, csv, sys, getopt, account, pyperclip
+import sys, getopt, account
 
 # Define global variables
 # `mode` indicates either read password or write an account to csv file
