@@ -18,7 +18,7 @@ def usage():
     print '-r --read                     - copy password to the clipboard for the given username'
     print '-w --write                    - write an account to the csv file'
     print '-d --delete                   - delete an account from the csv file'
-    print '-u --update                   - update an account from the csv file'
+    print '-u --update                   - update an account to the csv file'
     print '-f --filepath=filepath        - the [path] to the csv file'
     print '-a --account=your_account     - the [username] of account'
     print '-p --password=your_password   - the [password]'
@@ -49,8 +49,8 @@ def main():
     try:
         opts, args = getopt.getopt(
             sys.argv[1:],
-            'hrwdf:a:p:c:',
-            ['help', 'read', 'write', 'delete', 'filepath=', 'account=', 'password=', 'category=']
+            'hrwudf:a:p:c:',
+            ['help', 'read', 'write', 'update', 'delete', 'filepath=', 'account=', 'password=', 'category=']
         )
 
         for o, a in opts:
@@ -60,6 +60,8 @@ def main():
                 mode = 'r'
             elif o in ('-w', '--write'):
                 mode = 'w'
+            elif o in ('-u', '--update'):
+                mode = 'u'
             elif o in ('-d', '--delete'):
                 mode = 'd'
             elif o in ('-f', '--filepath'):
@@ -73,17 +75,19 @@ def main():
             else:
                 assert False, "Unhandled Option"
 
+        manager = account.PasswordManager(csvFilePath)
+
         if mode in 'wu':
             acc = account.Account(username, password, category)
 
             if mode == 'w':
-                accountWriter(csvFilePath, acc)
+                manager.createAccount(acc)
             else:
-                updateAccount(csvFilePath, acc)
+                manager.updateAccount(acc)
         elif mode == 'd':
-            deleteAccount(csvFilePath, username)
+            manager.deleteAccount(username)
         else:
-            passwordReader(csvFilePath, username)
+            manager.retrieveAccountPassword(username)
     except getopt.GetoptError as err:
         print str(err)
 
